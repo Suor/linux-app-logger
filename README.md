@@ -6,7 +6,7 @@ Just a tiny python script for quantified self purporses.
 ## INSTALL
 
 1. Clone repo.
-2. Install python-daemon.
+2. Install wmctrl and python-daemon.
 3. Adjust paths in ll script.
 4. Add it to Startup Applications (for Ubuntu)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os, sys, commands, re, time
+import os, sys, traceback, commands, re, time
 from datetime import datetime
 
 from dateutil.tz import tzlocal
@@ -39,8 +39,11 @@ with daemon.DaemonContext():
                     with open(log_file, 'a') as f:
                         f.write(log_line)
         except Exception:
-            import traceback
+            _, _, tb = sys.exc_info()
+            while tb.tb_next:
+                tb = tb.tb_next
             with open(log_file + '.err', 'a') as f:
-                traceback.print_exc(None, f);
+                traceback.print_exc(None, f)
+                f.write('Locals: %r\n\n' % tb.tb_frame.f_locals)
 
         time.sleep(timeout)
